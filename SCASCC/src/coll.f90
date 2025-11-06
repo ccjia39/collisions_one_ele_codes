@@ -8,6 +8,7 @@ use cgto
 use matrices
 use colldyn
 use collint
+use omp_lib ! This module contains the definition of omp_get_wtime
 implicit none
 
   character(len=lenmax) :: input, option, suff, finputxml, finput
