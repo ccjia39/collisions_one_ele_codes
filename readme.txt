@@ -17,6 +17,7 @@
   and see if one of them applies to your computer/compiler combination.
 *  If so, copy it or make a (symbolic) link to 'fortran.mk':
       ln -sf fortran-lf95.mk fortran.mk
+    or ln -sf fortran-intel.mk fortran.mk
 
 *  Go back to the top directory.
 *  If you have a Fortran95 compiler, simply type "sh build.sh"
@@ -46,7 +47,7 @@
 
 *  In /path/to/your/code/ , run 
 
-     make or make all
+     make
 
 *  Three codes: Getsta, Coll, and Sigma are then available.
 *  quick usage of this code is shown in RunExample.sh.
@@ -101,7 +102,9 @@
 ### With running the /Coll: ###
   The transition probabilities of all electronic channels for 
   all impact parameters are saved in $prob$.
-
+###
+###    write(*,'(i3,500(f12.6,1X))') "# initial state", "# impact parameter b", &
+###    &"# transition probabilities for all states included", "Total transition probabilities (1)"
 
 
 #############################
