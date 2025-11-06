@@ -219,7 +219,7 @@ implicit none
     oend = omp_get_wtime()
     WRITE(*,*)"# Dynamical process time used for present b",oend-ostart
     
-    write(*,'(i3,500(f12.6,1X))') "# initial state", "# impact parameter b", &
+    write(*,*) "# initial state", "# impact parameter b", &
     &"# transition probabilities for all states included", "Total transition probabilities (1)"
     write(*,'(i3,500(f12.6,1X))')is, bproj(ib),(cdabs(psi(i))**2,i=1,ntotsta), sum(cdabs(psi(:))**2)
     write(iunit,'(500(f12.6,1X))')bproj(ib), (cdabs(psi(i))**2,i=1,ntotsta),sum(cdabs(psi(:))**2)
