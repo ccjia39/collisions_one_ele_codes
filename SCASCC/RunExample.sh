@@ -5,7 +5,7 @@
 # export OMP_NUM_THREADS=N  
 # where N is the number of CPU cores
 ###
-
+ulimit -s unlimited
 export OMP_NUM_THREADS=1
 
 dir=$(pwd)
