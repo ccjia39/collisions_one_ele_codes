@@ -176,30 +176,34 @@ implicit none
     pCenters(1)%x(1) = bproj(ib) 
     pCenters(1)%y(1) = 0d0
 
-    call cpu_time(start)
-!    ostart = omp_get_wtime()
+!    call cpu_time(start)
+    ostart = omp_get_wtime()
 !$OMP PARALLEL DO DEFAULT(FIRSTPRIVATE) SHARED(mcoup,movl,mcgtocoup,mcgtoovl,zgrid,ntotsta,ntsta,npsta,ntcgto,npcgto,v,vproj,pCenters,tCenters) 
 ! SCHEDULE(DYNAMIC) 
    do izgrid = 1, zgrid%na
 !    pCenters(1)%z(1) = zgrid%a(izgrid)  pCenters(1)%z(1) is replaced by  zgrid%a(izgrid) everywhere in collint for parall. purpose
-    call ComputeCollMat(izgrid)
+     call ComputeCollMat(izgrid)
    enddo
 !$OMP END PARALLEL DO
-   call cpu_time(finish)
-!   oend = omp_get_wtime()
+!   call cpu_time(finish)
+    oend = omp_get_wtime()
+    WRITE(*,*)"# Matrix element computatiopn time used",oend-ostart
 !   WRITE(*,*)"#MEC time",finish-start,oend-ostart
 
-   call cpu_time(start)
-!   ostart = omp_get_wtime()
+
+!   call cpu_time(start)
+   ostart = omp_get_wtime()
    call inttrans
-!   oend = omp_get_wtime()
-!   WRITE(*,*)"#INT Trans time",finish-start,oend-ostart
+   oend = omp_get_wtime()
+   WRITE(*,*)"# Matrix transformation time used",oend-ostart
+   !WRITE(*,*)"#INT Trans time",finish-start,oend-ostart
 
 
-   call cpu_time(start)
-!   ostart = omp_get_wtime()
-   call initdyn
-!   oend = omp_get_wtime()
+  !  call cpu_time(start)
+    ostart = omp_get_wtime()
+    call initdyn
+    oend = omp_get_wtime()
+    WRITE(*,*)"# Initialize the dynamics time used",oend-ostart
 !   WRITE(*,*)"#Init Dyn time",finish-start,oend-ostart
    
    do is = 1, ninitsta
@@ -207,13 +211,15 @@ implicit none
     psi(:) = 0d0
     psi(initsta(is)) = 1d0
    
-    call cpu_time(start)
-!    ostart = omp_get_wtime()
+!    call cpu_time(start)
+    ostart = omp_get_wtime()
     call dyn
-    call cpu_time(finish)
-!    oend = omp_get_wtime()
-!    WRITE(*,*)"#DYN time",finish-start,oend-ostart
-   
+!    call cpu_time(finish)
+    oend = omp_get_wtime()
+    WRITE(*,*)"# Dynamical process time used for present b",oend-ostart
+    
+    write(*,'(i3,500(f12.6,1X))') "# initial state", "# impact parameter b", &
+    &"# transition probabilities for all states included", "Total transition probabilities (1)"
     write(*,'(i3,500(f12.6,1X))')is, bproj(ib),(cdabs(psi(i))**2,i=1,ntotsta), sum(cdabs(psi(:))**2)
     write(iunit,'(500(f12.6,1X))')bproj(ib), (cdabs(psi(i))**2,i=1,ntotsta),sum(cdabs(psi(:))**2)
    enddo

@@ -1,5 +1,13 @@
 #source /public/intel/oneapi/setvars.sh intel64
 #FLIB_ROOT=/storage/home/hznu/jiacc/xmlf90/macros ; export FLIB_ROOT
+
+###
+# export OMP_NUM_THREADS=N  
+# where N is the number of CPU cores
+###
+
+export OMP_NUM_THREADS=1
+
 dir=$(pwd)
 direx=$(pwd)'/Example/'
 echo $dir
