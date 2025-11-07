@@ -8,7 +8,8 @@ all: getsta coll sigma
 #---------------------------
 #FLIB_ROOT=/storage/home/hznu/jiacc/xmlf90/macros ; export FLIB_ROOT
 #/storage/home/hznu/njj/ccjia-test/Coll-test/xmlf90-1.2g/macros/
-MK=/storage/home/hznu/njj/ccjia-test/Coll-test/xmlf90-1.2g/macros/fortran.mk
+MK=$(FLIB_ROOT)/fortran.mk
+#/storage/home/hznu/njj/ccjia-test/Coll-test/xmlf90-1.2g/macros/fortran.mk
 include $(MK)
 #---------------------------
 #
