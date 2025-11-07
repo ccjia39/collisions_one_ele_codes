@@ -26,6 +26,7 @@ call getarg(1,input)
 call getarg(2,ista)
 read(ista,"(I)") initsta
 
+
 ilen=index(input,' ')
 inquire( directory="./"//input(1:ilen-1)//"/.", exist=dir_e )
 if ( dir_e .eqv. .false. ) then

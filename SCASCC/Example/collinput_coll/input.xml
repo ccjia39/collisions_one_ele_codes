@@ -1,8 +1,8 @@
 <CollInput>
 
 <CollParam>
-<ImpactParam type='linear' bmin='0.2' bmax='12.2' nb='2' />
-<ImpactVel vx='0.0' vy='0.0' vz='1.0' />
+<ImpactParam type='linear' bmin='0.2' bmax='12.2' nb='40' />
+<ImpactVel vx='0.0' vy='0.0' vz='0.2' />
 <Zgrid type='exp' zmin='-100' zmax='100' nzgrid='150' />
 <InitState   type='target' state='1' />
 </CollParam>
@@ -12,5 +12,3 @@
 <Projectile file='getsta_nitrogen_sta' stamin="3" stamax="69"/>
 
 </CollInput>
-    
-

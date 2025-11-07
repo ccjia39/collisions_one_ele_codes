@@ -12,11 +12,11 @@ use omp_lib ! This module contains the definition of omp_get_wtime
 implicit none
 
   character(len=lenmax) :: input, option, suff, finputxml, finput
-  character(len=lenmax) :: fout
+  character(len=lenmax) :: fout, ffout
 
   double precision :: spac
  
-  integer :: ib, is, iunit, izgrid
+  integer :: ib, is, iunit, iunit2, izgrid
   integer :: i, j, k
 
   double precision :: start, finish
@@ -167,9 +167,15 @@ implicit none
    
   do is = 1, ninitsta
    iunit = 10 + is
+   iunit2 = 20 + is
    fout = 'prob'//achar(is+48)
+   ffout = 'formatted_prob'//achar(is+48)
+
    open(iunit,file=fout)
    write(iunit,*)nbproj
+
+   open(iunit2,file=ffout)
+   write(iunit2,*)"The number of impact parameter b is : ",nbproj
   enddo
 
   do ib = 1, nbproj
@@ -177,7 +183,6 @@ implicit none
     pCenters(1)%x(1) = bproj(ib) 
     pCenters(1)%y(1) = 0d0
 
-!    call cpu_time(start)
     ostart = omp_get_wtime()
 !$OMP PARALLEL DO DEFAULT(FIRSTPRIVATE) SHARED(mcoup,movl,mcgtocoup,mcgtoovl,zgrid,ntotsta,ntsta,npsta,ntcgto,npcgto,v,vproj,pCenters,tCenters) 
 ! SCHEDULE(DYNAMIC) 
@@ -186,50 +191,53 @@ implicit none
      call ComputeCollMat(izgrid)
    enddo
 !$OMP END PARALLEL DO
-!   call cpu_time(finish)
     oend = omp_get_wtime()
     WRITE(*,*)"# Matrix element computatiopn time used",oend-ostart
-!   WRITE(*,*)"#MEC time",finish-start,oend-ostart
 
 
-!   call cpu_time(start)
    ostart = omp_get_wtime()
    call inttrans
    oend = omp_get_wtime()
    WRITE(*,*)"# Matrix transformation time used",oend-ostart
-   !WRITE(*,*)"#INT Trans time",finish-start,oend-ostart
 
 
-  !  call cpu_time(start)
     ostart = omp_get_wtime()
     call initdyn
     oend = omp_get_wtime()
     WRITE(*,*)"# Initialize the dynamics time used",oend-ostart
-!   WRITE(*,*)"#Init Dyn time",finish-start,oend-ostart
    
    do is = 1, ninitsta
     iunit = 10 + is
     psi(:) = 0d0
     psi(initsta(is)) = 1d0
-   
-!    call cpu_time(start)
+
     ostart = omp_get_wtime()
     call dyn
-!    call cpu_time(finish)
     oend = omp_get_wtime()
     WRITE(*,*)"# Dynamical process time used for present b",oend-ostart
     
-    write(*,*) "# initial state", "# impact parameter b", &
-    &"# transition probabilities for all states included", "Total transition probabilities (1)"
-    write(*,'(i3,500(f12.6,1X))')is, bproj(ib),(cdabs(psi(i))**2,i=1,ntotsta), sum(cdabs(psi(:))**2)
+    write(*,*) "# initial state", "# impact parameter b","# transition probabilities for all states included",&
+    & "Total transition probabilities (the total prob is conserved to 1)"
+    write(*,'(i3,500(f12.6,1X))')is, bproj(ib),(cdabs(psi(i))**2,i=1,ntotsta), sum(cdabs(psi(:))**2)    
     write(iunit,'(500(f12.6,1X))')bproj(ib), (cdabs(psi(i))**2,i=1,ntotsta),sum(cdabs(psi(:))**2)
+
+     write(iunit2, *) "# impact parameter b","# state energy","# transition probability"
+     do i = 1, ntsta
+       write(iunit2,'(f12.6,1X,a,2(f15.9,1X))')bproj(ib), 't ', real(testa(i)), cdabs(psi(i))**2
+     enddo
+     do i = 1, npsta
+       j = i + ntsta
+       write(iunit2,'(f12.6,1X,a,2(f15.9,1X))')bproj(ib), 'p ', real(pesta(i)), cdabs(psi(j))**2
+     enddo
    enddo
   
   enddo ! ib
   
   do is = 1, ninitsta
    iunit = 10 + is
+   iunit2 = 20 + is
    close(iunit)
+   close(iunit2)
   enddo
 
   deallocate(testa,teigvec,pesta,peigvec,bproj)

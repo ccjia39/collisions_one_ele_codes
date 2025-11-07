@@ -7,7 +7,8 @@ all: getsta coll sigma
 #
 #---------------------------
 #FLIB_ROOT=/storage/home/hznu/jiacc/xmlf90/macros ; export FLIB_ROOT
-MK=$(FLIB_ROOT)/fortran.mk
+#/storage/home/hznu/njj/ccjia-test/Coll-test/xmlf90-1.2g/macros/
+MK=/storage/home/hznu/njj/ccjia-test/Coll-test/xmlf90-1.2g/macros/fortran.mk
 include $(MK)
 #---------------------------
 #
@@ -18,14 +19,14 @@ include $(MK)
 
 LIBS=$(LIB_PREFIX)$(LIB_STD) -lflib -qmkl
 
-LDFLAGS = -O2 -fopenmp #-parallel
+LDFLAGS = -O3 -fopenmp #-parallel
 
-mod = abmlib.f colldyn.f90 computemat.f90 fdn.f90 inttrans.f90 newtypes.f90 \
+#mod = abmlib.f colldyn.f90 computemat.f90 fdn.f90 inttrans.f90 newtypes.f90 \
       setup.f90 splineinterp.f90 centerlib.f90 collint.f90 diagolib.f90 \
       general.f90 linearinterp.f90 nuclear.f90 tools.f90 cgto.f90 colllib.f90 \
       f11.f90 inputlib.f90 matrices.f90 overlap.f90 special_functions.f90
 
-src = getsta.f90 coll.f90 sigma.f90
+#src = getsta.f90 coll.f90 sigma.f90
 
 moddir = ../mod
 srcdir = ../src

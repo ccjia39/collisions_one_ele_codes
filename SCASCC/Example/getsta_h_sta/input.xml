@@ -3,7 +3,7 @@
 
  <Center>
    <Position  x='0.0000000' y=' 0.0000000' z=' 0.0000' />
-   <Basisset file='/storage/home/hznu/jiacc/SCASCC/Example/basis_h' />
+   <Basisset file='/storage/home/hznu/njj/ccjia-test/speed-up/SCASCC/Example/basis_h' />
    <Potential charge=' 1.0d0' exponent=' 0.0000000' />
  </Center> 
 
