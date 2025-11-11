@@ -36,16 +36,16 @@ write(*,*)"# Output files in ", creadir(1:ilen-1)
 inquire( file="./"//creadir(1:ilen-1)//"/.", exist=dir_e )
 if ( dir_e ) then
   if(option=="-rep") then
-    write(*,*),"# ", creadir(:ilen-1), " replaced!"
+    write(*,*) "# ", creadir(:ilen-1), " replaced!"
     call system('rm -rf '// creadir(:ilen-1))
     call system('mkdir '// creadir(:ilen-1))
     call system('cp '//finput(1:jlen-1)//' '//creadir(:ilen-1)//'/input.xml')
     call chdir(creadir(:ilen-1))
     call getcwd( workdir)
-    write(*,*)"# Move to ", workdir
+    write(*,*) "# Move to ", workdir
   else
-    write(*,*), creadir(:ilen-1), " exists!"
-    write(*,*), "if you want to replace it, use option -rep"
+    write(*,*) creadir(:ilen-1), " exists!"
+    write(*,*) "if you want to replace it, use option -rep"
     stop
   endif
 else
