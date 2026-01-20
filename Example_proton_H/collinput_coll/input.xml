@@ -1,0 +1,14 @@
+<CollInput>
+
+<CollParam>
+<ImpactParam type='linear' bmin='0.2' bmax='10.2' nb='50' />
+<ImpactVel vx='0.0' vy='0.0' vz='1.0' />
+<Zgrid type='exp' zmin='-100' zmax='100' nzgrid='150' />
+<InitState   type='target' state='1' />
+</CollParam>
+
+<Target file='getsta_h_sta' stamin="1" stamax="40"/>
+
+<Projectile file='getsta_h_sta' stamin="1" stamax="40"/>
+
+</CollInput>

@@ -1,0 +1,18 @@
+ Menu
+ -1 exit 
+ 0 print the energies
+ 1 print the total cross sections
+ 2 print the partial (shell-by-shell) cross sections
+ 3 print the partial (state-by-state) cross sections
+ Cross sections in 10^-16 cm^2
+ Capture   4.04858456784816     
+ Excitation  0.981254870199271     
+ Ionisation (t,p,tot)  0.187834293561714       0.497571393261641     
+  0.685405686823355     
+ Menu
+ -1 exit 
+ 0 print the energies
+ 1 print the total cross sections
+ 2 print the partial (shell-by-shell) cross sections
+ 3 print the partial (state-by-state) cross sections
+ # sigma ended normally
